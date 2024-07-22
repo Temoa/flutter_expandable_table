@@ -94,13 +94,13 @@ class InternalTableState extends State<InternalTable> {
     }
   }
 
-  Widget _buildBody(ExpandableTableController data) => Row(
+  Widget _buildBody(ExpandableTableController data, ScrollPhysics? verticalPhysics, ScrollPhysics? horizontalPhysics) => Row(
         children: [
           Builder(
             builder: (context) {
               final Widget child = ListView(
                 controller: _firstColumnController,
-                physics: const ClampingScrollPhysics(),
+                physics: verticalPhysics ?? const ClampingScrollPhysics(),
                 children: data.allRows
                     .map(
                       (e) => ChangeNotifierProvider<ExpandableTableRow>.value(
@@ -154,7 +154,7 @@ class InternalTableState extends State<InternalTable> {
               final Widget child = SingleChildScrollView(
                 controller: _horizontalBodyController,
                 scrollDirection: Axis.horizontal,
-                physics: const ClampingScrollPhysics(),
+                physics: horizontalPhysics ?? const ClampingScrollPhysics(),
                 child: AnimatedContainer(
                   width: data.visibleHeadersWidth,
                   duration: data.duration,
@@ -167,7 +167,7 @@ class InternalTableState extends State<InternalTable> {
                     duration: data.scrollShadowDuration,
                     child: ListView(
                       controller: _restColumnsController,
-                      physics: const ClampingScrollPhysics(),
+                      physics: verticalPhysics ?? const ClampingScrollPhysics(),
                       children: data.allRows
                           .map(
                             (e) => _buildRowCells(data, e),
@@ -279,7 +279,7 @@ class InternalTableState extends State<InternalTable> {
                     duration: data.scrollShadowDuration,
                     child: ListView(
                       controller: _headController,
-                      physics: const ClampingScrollPhysics(),
+                      physics: data.horizontalPhysics ?? const ClampingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       children: _buildHeaderCells(data),
                     ),
@@ -289,7 +289,7 @@ class InternalTableState extends State<InternalTable> {
             ),
           ),
           Expanded(
-            child: _buildBody(data),
+            child: _buildBody(data, data.verticalPhysics, data.horizontalPhysics),
           ),
         ],
       ),

@@ -107,6 +107,14 @@ class ExpandableTable extends StatefulWidget {
   /// 'optional'
   final ExpandableTableController? controller;
 
+  /// [physics]
+  /// 'optional'
+  final ScrollPhysics? verticalPhysics;
+
+  /// [physics]
+  /// 'optional'
+  final ScrollPhysics? horizontalPhysics;
+
   /// [ExpandableTable] class constructor.
   /// Required:
   ///   - [firstHeaderCell]
@@ -141,6 +149,8 @@ class ExpandableTable extends StatefulWidget {
     this.trackVisibilityScrollbar,
     this.thumbVisibilityScrollbar,
     this.expanded = true,
+    this.verticalPhysics,
+    this.horizontalPhysics,
   }) : assert(((firstHeaderCell != null && rows != null && headers != null) ||
                 controller != null) &&
             !(thumbVisibilityScrollbar == false &&
@@ -193,6 +203,8 @@ class _ExpandableTableState extends State<ExpandableTable> {
             trackVisibilityScrollbar: widget.trackVisibilityScrollbar,
             thumbVisibilityScrollbar: widget.thumbVisibilityScrollbar,
             expanded: widget.expanded,
+            verticalPhysics: widget.verticalPhysics,
+            horizontalPhysics: widget.horizontalPhysics,
           ),
           builder: (context, child) => const InternalTable(),
         );

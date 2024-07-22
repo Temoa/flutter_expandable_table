@@ -172,6 +172,14 @@ class ExpandableTableController extends ChangeNotifier {
   /// Default: [10]
   final double scrollShadowSize;
 
+  /// [physics]
+  /// 'optional'
+  final ScrollPhysics? verticalPhysics;
+
+  /// [physics]
+  /// 'optional'
+  final ScrollPhysics? horizontalPhysics;
+
   set rows(List<ExpandableTableRow> value) {
     _removeRowsListener();
     _rows = value;
@@ -199,6 +207,8 @@ class ExpandableTableController extends ChangeNotifier {
     double firstColumnWidth = 200,
     double defaultsColumnWidth = 120,
     double defaultsRowHeight = 50,
+    this.verticalPhysics,
+    this.horizontalPhysics,
   }) {
     _firstHeaderCell = firstHeaderCell;
     _headerHeight = headerHeight;
